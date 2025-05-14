@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -5,13 +6,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
+
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addProduct } from "@/redux/features/products/productSlice";
+import { Label } from "@/components/ui/label";
+
 import {
   Select,
   SelectContent,
@@ -19,6 +17,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
+import { Textarea } from "@/components/ui/textarea";
+import { addProduct } from "@/redux/features/products/productSlice";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 const AddProduct = () => {
   const dispatch = useDispatch();
@@ -113,7 +116,7 @@ const AddProduct = () => {
             </div>
           </div>
           {/* description */}
-          <div className="space-y-2">
+          <div className="-mt-2 space-y-2">
             <Label>Description</Label>
             <Textarea
               required

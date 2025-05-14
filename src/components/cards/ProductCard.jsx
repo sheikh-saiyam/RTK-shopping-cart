@@ -8,27 +8,36 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { addToCart } from "@/redux/features/carts/cartSlice";
 import { useState } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
 import { IoGift } from "react-icons/io5";
 import { MdLocalShipping } from "react-icons/md";
 import { RiHeartAddLine, RiHeartFill } from "react-icons/ri";
+import { useDispatch } from "react-redux";
 
-const ProductCard = ({ product = {} }) => {
+const ProductCard = ({ product }) => {
+  const { title, description, price, image, category } = product || {};
+
+  const dispatch = useDispatch();
   const [isFavorite, setIsFavorite] = useState(false);
 
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
+  };
+  
   return (
     <Card className="w-full relative">
       <CardHeader className="px-4">
         {/* badge */}
         <Badge variant={"destructive"} className="absolute top-2 left-2">
-          {product?.category}
+          {category}
         </Badge>
 
         {/* product image */}
         <img
           alt="product/image"
-          src={product?.image}
+          src={image}
           className="w-full mt-6 object-cover h-[200px]"
         />
       </CardHeader>
@@ -36,15 +45,13 @@ const ProductCard = ({ product = {} }) => {
       {/* product details */}
       <CardContent className="-mt-4 px-4">
         <div>
-          <CardTitle className="text-2xl mb-1 mt-2">{product?.title}</CardTitle>
+          <CardTitle className="text-2xl mb-1 mt-2">{title}</CardTitle>
           <CardDescription className="line-clamp-2">
-            {product?.description}
+            {description}
           </CardDescription>
           {/* price  */}
           <div className="flex items-center mt-3 gap-[15px]">
-            <p className="text-[1.150rem] font-semibold mt-1">
-              ${product?.price}
-            </p>
+            <p className="text-[1.150rem] font-semibold mt-1">${price}</p>
           </div>
           {/* shipping offers */}
           <div className="flex items-center border-t border-gray-300 mt-3 gap-[15px] pt-[5px]">
@@ -63,7 +70,10 @@ const ProductCard = ({ product = {} }) => {
       {/* actions */}
       <CardFooter className="px-4">
         <div className="flex items-center justify-between gap-[15px]">
-          <Button className="grow justify-center flex items-center gap-[0.5rem] transition-all duration-200">
+          <Button
+            onClick={() => handleAddToCart(product)}
+            className="grow justify-center flex items-center gap-[0.5rem] transition-all duration-200"
+          >
             Buy Product
             <FiArrowUpRight className="text-[1.3rem]" />
           </Button>

@@ -10,7 +10,12 @@ import { Minus } from "lucide-react";
 import { Plus } from "lucide-react";
 import { Trash } from "lucide-react";
 
-const CartCard = ({ cart }) => {
+const CartCard = ({
+  cart,
+  handleIncreaseQuantity,
+  handleDecreaseQuantity,
+  handleRemoveCartItem,
+}) => {
   return (
     <Card className={"mb-4"}>
       <CardContent className={"flex flex-col gap-4 md:flex-row"}>
@@ -43,6 +48,7 @@ const CartCard = ({ cart }) => {
             <div className="flex gap-1 border p-1 rounded-xl shadow">
               <Button
                 variant="outline"
+                onClick={() => handleDecreaseQuantity(cart.id, cart.quantity)}
                 className={"rounded-lg font-bold text-xl"}
               >
                 <Minus />
@@ -52,6 +58,7 @@ const CartCard = ({ cart }) => {
               </Button>
               <Button
                 variant="outline"
+                onClick={() => handleIncreaseQuantity(cart.id)}
                 className={"rounded-lg font-bold text-xl"}
               >
                 <Plus />
@@ -59,7 +66,10 @@ const CartCard = ({ cart }) => {
             </div>
             {/* Delete */}
             <div className="flex justify-end">
-              <Button variant={"destructive"}>
+              <Button
+                variant={"destructive"}
+                onClick={() => handleRemoveCartItem(cart.id)}
+              >
                 <Trash />
               </Button>
             </div>

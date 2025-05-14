@@ -18,13 +18,12 @@ import { useDispatch } from "react-redux";
 
 const ProductCard = ({ product }) => {
   const { title, description, price, image, category } = product || {};
-  
+
   const dispatch = useDispatch();
   const [isFavorite, setIsFavorite] = useState(false);
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
-
   };
 
   return (

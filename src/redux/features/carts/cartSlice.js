@@ -31,9 +31,25 @@ export const cartSlice = createSlice({
         });
       }
     },
+    increaseQuantity: (state, action) => {
+      const cartItem = state.find((cart) => cart.id == action.payload);
+      if (cartItem) {
+        cartItem.quantity++;
+      }
+    },
+    decreaseQuantity: (state, action) => {
+      const cartItem = state.find((cart) => cart.id == action.payload);
+      if (cartItem) {
+        cartItem.quantity--;
+      }
+    },
+    removeCartItem: (state, action) => {
+      return state.filter((cart) => cart.id !== action.payload);
+    },
   },
 });
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, increaseQuantity, decreaseQuantity, removeCartItem } =
+  cartSlice.actions;
 const cartReducer = cartSlice.reducer;
 export default cartReducer;

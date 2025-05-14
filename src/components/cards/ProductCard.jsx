@@ -18,19 +18,20 @@ import { useDispatch } from "react-redux";
 
 const ProductCard = ({ product }) => {
   const { title, description, price, image, category } = product || {};
-
+  
   const dispatch = useDispatch();
   const [isFavorite, setIsFavorite] = useState(false);
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
+
   };
-  
+
   return (
     <Card className="w-full relative">
       <CardHeader className="px-4">
         {/* badge */}
-        <Badge variant={"destructive"} className="absolute top-2 left-2">
+        <Badge variant={"destructive"} className="absolute top-4 left-3">
           {category}
         </Badge>
 

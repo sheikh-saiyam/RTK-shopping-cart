@@ -4,9 +4,12 @@ import { CiMenuFries } from "react-icons/ci";
 import { useState } from "react";
 import { ShoppingCart } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { useSelector } from "react-redux";
+import { Link } from "react-router";
 
 const Navbar = () => {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const cart = useSelector((state) => state.cart);
 
   return (
     <nav className="flex items-center justify-between w-full relative">
@@ -17,15 +20,18 @@ const Navbar = () => {
       <div className="flex gap-12 items-center">
         {/* nav links */}
         <ul className="items-center gap-[20px] text-[1rem] hidden md:flex">
-          <li className="flex items-center gap-[5px] cursor-pointer hover:text-muted-foreground duration-500 transition-all">
+          <Link to={"/"} className="flex items-center gap-[5px] cursor-pointer hover:text-muted-foreground duration-500 transition-all">
             <Home size={18} />
             Home
-          </li>
-          <li className="flex items-center gap-[5px] cursor-pointer hover:text-muted-foreground duration-500 transition-all">
+          </Link>
+          <Link to={"/"} className="flex items-center gap-[5px] cursor-pointer hover:text-muted-foreground duration-500 transition-all">
             <ShoppingBag size={18} />
             Products
-          </li>
-          <li className="flex items-center gap-[5px] cursor-pointer duration-500 transition-all relative">
+          </Link>
+          <Link
+            to={"/cart"}
+            className="flex items-center gap-[5px] cursor-pointer duration-500 transition-all relative"
+          >
             <div className="absolute">
               <ShoppingCart
                 size={28}
@@ -34,10 +40,10 @@ const Navbar = () => {
             </div>
             <div className="absolute -bottom-0.5 left-4">
               <Badge className={"text-xs px-1.5 rounded-full py-[1px]"}>
-                {7}
+                {cart.length || 0}
               </Badge>
             </div>
-          </li>
+          </Link>
         </ul>
 
         {/* user account */}

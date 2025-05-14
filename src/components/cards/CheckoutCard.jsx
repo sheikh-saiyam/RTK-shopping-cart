@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
 
-const CheckoutCard = () => {
+const CheckoutCard = ({ subTotal, totalPrice }) => {
   return (
     <Card>
       <CardContent className={"space-y-3"}>
@@ -9,20 +9,20 @@ const CheckoutCard = () => {
           <CardTitle>Subtotal</CardTitle>
           <CardTitle className={"font-normal"}>
             <span className="font-semibold mr-0.5">$</span>
-            {934}
+            {subTotal || 0.0}
           </CardTitle>
         </div>
         <div className="flex justify-between items-center">
           <CardTitle>Shpping</CardTitle>
           <CardTitle className={"font-normal"}>
-            <span className="font-semibold mr-0.5">$</span>4.99
+            <span className="font-semibold mr-0.5">$</span>5.00
           </CardTitle>
         </div>
         <div className="border-t border-border pt-2 mt-4 flex justify-between items-center">
           <CardTitle>Total</CardTitle>
           <CardTitle className={"font-normal"}>
             <span className="font-semibold mr-0.5">$</span>
-            {129}
+            {totalPrice.toFixed(2) || 0}
           </CardTitle>
         </div>
       </CardContent>

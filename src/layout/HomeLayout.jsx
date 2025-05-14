@@ -10,7 +10,7 @@ const HomeLayout = () => {
           <Products />
         </div>
         {/* AddProducts */}
-        <div className="w-full lg:w-4/12 border">
+        <div className="w-full lg:w-4/12">
           <AddProduct />
         </div>
       </div>

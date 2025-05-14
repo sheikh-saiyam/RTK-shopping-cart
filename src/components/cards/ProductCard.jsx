@@ -14,7 +14,7 @@ import { IoGift } from "react-icons/io5";
 import { MdLocalShipping } from "react-icons/md";
 import { RiHeartAddLine, RiHeartFill } from "react-icons/ri";
 
-const ProductCard = () => {
+const ProductCard = ({ product = {} }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   return (
@@ -28,22 +28,23 @@ const ProductCard = () => {
         {/* product image */}
         <img
           alt="product/image"
-          src="https://i.ibb.co.com/z4BV3S2/image-1.png"
-          className="w-full mt-6"
+          src={product?.image}
+          className="w-full mt-6 object-cover h-[200px]"
         />
       </CardHeader>
 
       {/* product details */}
       <CardContent className="-mt-4 px-4">
         <div>
-          <CardTitle className="text-2xl mb-1 mt-2">Apple Mac</CardTitle>
+          <CardTitle className="text-2xl mb-1 mt-2">{product?.title}</CardTitle>
           <CardDescription className="line-clamp-2">
-            2020 Apple MacBook Pro with Apple M1 Chip (13-inch, 8GB RAM, 256GB
-            SSD Storage) - Silver
+            {product?.description}
           </CardDescription>
           {/* price  */}
           <div className="flex items-center mt-3 gap-[15px]">
-            <p className="text-[1.150rem] font-semibold mt-1">$1024.99+</p>
+            <p className="text-[1.150rem] font-semibold mt-1">
+              ${product?.price}
+            </p>
           </div>
           {/* shipping offers */}
           <div className="flex items-center border-t border-gray-300 mt-3 gap-[15px] pt-[5px]">

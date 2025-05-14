@@ -22,7 +22,7 @@ const ProductCard = ({ product = {} }) => {
       <CardHeader className="px-4">
         {/* badge */}
         <Badge variant={"destructive"} className="absolute top-2 left-2">
-          Best Value
+          {product?.category}
         </Badge>
 
         {/* product image */}

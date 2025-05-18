@@ -29,7 +29,7 @@ const Navbar = () => {
               Home
             </Link>
             <Link
-              to={"/"}
+              to={"/products"}
               className="flex items-center gap-[5px] cursor-pointer hover:text-muted-foreground duration-500 transition-all"
             >
               <ShoppingBag size={18} />

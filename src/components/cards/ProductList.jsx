@@ -71,8 +71,26 @@ const ProductList = ({ product }) => {
     });
   };
 
+  const handleUpdateProduct = (e) => {
+    e.preventDefault();
 
+    if (!category) {
+      setError("Category Is Required! Pls Select A Category");
+      return;
+    }
 
+    const updatedProductData = {
+      id,
+      title: name,
+      price: statePrice,
+      image: stateImage,
+      description: stateDescription,
+      category: stateCategory,
+    };
+
+    dispatch(updateProduct(updatedProductData));
+  };
+  
   return (
     <Card className="w-full relative h-fit">
       <CardHeader className="px-4">

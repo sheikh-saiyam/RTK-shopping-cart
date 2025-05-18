@@ -5,7 +5,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { deleteProduct } from "@/redux/features/products/productSlice";
+import {
+  deleteProduct,
+  updateProduct,
+} from "@/redux/features/products/productSlice";
 import { Label } from "@radix-ui/react-label";
 import { Edit, Trash } from "lucide-react";
 import { useState } from "react";
@@ -68,7 +71,8 @@ const ProductList = ({ product }) => {
     });
   };
 
-  // const handleUpdateProductJ = ()
+
+
   return (
     <Card className="w-full relative h-fit">
       <CardHeader className="px-4">
@@ -131,10 +135,7 @@ const ProductList = ({ product }) => {
 
         {isUpdateOpen && (
           <div className="mt-4 pt-2 border-t">
-            <form
-              // onSubmit={handleSubmit}
-              className="space-y-4"
-            >
+            <form onSubmit={handleUpdateProduct} className="space-y-4">
               <div className="grid gap-4 grid-cols-2">
                 {/* name */}
                 <div className="space-y-2">
@@ -143,7 +144,7 @@ const ProductList = ({ product }) => {
                     type="text"
                     required
                     placeholder="Enter Product Name"
-                    value={title}
+                    defaultValue={title}
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
@@ -154,7 +155,7 @@ const ProductList = ({ product }) => {
                     type="number"
                     required
                     placeholder="Enter Product Price"
-                    value={price}
+                    defaultValue={price}
                     onChange={(e) => setPrice(e.target.value)}
                   />
                 </div>
@@ -167,13 +168,14 @@ const ProductList = ({ product }) => {
                     type="url"
                     required
                     placeholder="Enter Product Image URL"
-                    value={image}
+                    defaultValue={image}
                     onChange={(e) => setImage(e.target.value)}
                   />
                 </div>
                 <div className="space-y-2 col-span-2">
                   <Label>Category</Label>
                   <Select
+                    value={stateCategory}
                     onValueChange={(value) => {
                       setCategory(value);
                       setError("");
@@ -197,7 +199,7 @@ const ProductList = ({ product }) => {
                 <Textarea
                   required
                   placeholder="Enter Product Description"
-                  value={description}
+                  defaultValue={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </div>
@@ -209,7 +211,7 @@ const ProductList = ({ product }) => {
               )}
               {/* Add */}
               <div>
-                <Button>Update Product</Button>
+                <Button type="submit">Update Product</Button>
               </div>
             </form>
           </div>

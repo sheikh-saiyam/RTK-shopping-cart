@@ -13,12 +13,22 @@ const productSlice = createSlice({
         ...action.payload,
       });
     },
+    updateProduct: (state, action) => {
+      const product = state.find((product) => product.id === action.payload.id);
+      if (product) {
+        product.title = action.payload.title;
+        product.price = action.payload.price;
+        product.description = action.payload.description;
+        product.category = action.payload.category;
+      }
+    },
     deleteProduct: (state, action) => {
       return state.filter((product) => product.id !== action.payload);
     },
   },
 });
 
-export const { addProduct, deleteProduct } = productSlice.actions;
+export const { addProduct, updateProduct, deleteProduct } =
+  productSlice.actions;
 const productReducer = productSlice.reducer;
 export default productReducer;

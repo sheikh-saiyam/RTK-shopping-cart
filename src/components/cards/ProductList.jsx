@@ -1,26 +1,42 @@
-import React from "react";
 import {
-  Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
-  CardAction,
-  CardDescription,
-  CardContent,
-} from "../ui/card";
-import { Badge } from "../ui/badge";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { deleteProduct } from "@/redux/features/products/productSlice";
+import { Label } from "@radix-ui/react-label";
+import { Edit, Trash } from "lucide-react";
+import { useState } from "react";
 import { IoGift } from "react-icons/io5";
 import { MdLocalShipping } from "react-icons/md";
-import { Button } from "../ui/button";
-import { Edit } from "lucide-react";
-import { Trash } from "lucide-react";
 import { useDispatch } from "react-redux";
-import { deleteProduct } from "@/redux/features/products/productSlice";
 import { toast } from "sonner";
+import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
+import { Input } from "../ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 const ProductList = ({ product }) => {
   const dispatch = useDispatch();
   const { id, title, description, price, image, category } = product || {};
+
+  const [isUpdateOpen, setIsUpdateOpen] = useState(false);
+  const [name, setName] = useState(title);
+  const [statePrice, setPrice] = useState(price);
+  const [stateImage, setImage] = useState(image);
+  const [stateCategory, setCategory] = useState(category);
+  const [stateDescription, setDescription] = useState(description);
+  const [error, setError] = useState("");
 
   const handleDeleteProduct = (id) => {
     toast("Are you sure you want to delete this product?", {
@@ -52,8 +68,9 @@ const ProductList = ({ product }) => {
     });
   };
 
+  // const handleUpdateProductJ = ()
   return (
-    <Card className="w-full relative">
+    <Card className="w-full relative h-fit">
       <CardHeader className="px-4">
         {/* badge */}
         <Badge variant={"destructive"} className="absolute top-4 left-3">
@@ -94,9 +111,13 @@ const ProductList = ({ product }) => {
       </CardContent>
 
       {/* actions */}
-      <CardFooter className="px-4">
+      <CardFooter className="px-4 flex flex-col items-start">
         <div className="flex items-center justify-between gap-[15px]">
-          <Button variant="outline" className={"text-blue-500"}>
+          <Button
+            onClick={() => setIsUpdateOpen(!isUpdateOpen)}
+            variant="outline"
+            className={"text-blue-500"}
+          >
             <Edit />
           </Button>
           <Button
@@ -107,6 +128,92 @@ const ProductList = ({ product }) => {
             <Trash />
           </Button>
         </div>
+
+        {isUpdateOpen && (
+          <div className="mt-4 pt-2 border-t">
+            <form
+              // onSubmit={handleSubmit}
+              className="space-y-4"
+            >
+              <div className="grid gap-4 grid-cols-2">
+                {/* name */}
+                <div className="space-y-2">
+                  <Label>Name</Label>
+                  <Input
+                    type="text"
+                    required
+                    placeholder="Enter Product Name"
+                    value={title}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </div>
+                {/* price */}
+                <div className="space-y-2">
+                  <Label>Price</Label>
+                  <Input
+                    type="number"
+                    required
+                    placeholder="Enter Product Price"
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
+                  />
+                </div>
+              </div>
+              {/* image */}
+              <div className="grid gap-4 grid-cols-5">
+                <div className="space-y-2 col-span-3">
+                  <Label>Image URL</Label>
+                  <Input
+                    type="url"
+                    required
+                    placeholder="Enter Product Image URL"
+                    value={image}
+                    onChange={(e) => setImage(e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2 col-span-2">
+                  <Label>Category</Label>
+                  <Select
+                    onValueChange={(value) => {
+                      setCategory(value);
+                      setError("");
+                    }}
+                    className="w-full"
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select Category" />
+                    </SelectTrigger>
+                    <SelectContent className="w-full">
+                      <SelectItem value="Laptop">Laptop</SelectItem>
+                      <SelectItem value="Phone">Phone</SelectItem>
+                      <SelectItem value="Accessories">System</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              {/* description */}
+              <div className="-mt-2 space-y-2">
+                <Label>Description</Label>
+                <Textarea
+                  required
+                  placeholder="Enter Product Description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </div>
+              {/* error */}
+              {error && (
+                <div className="-mt-1">
+                  <Label className={"text-red-500"}>{error}</Label>
+                </div>
+              )}
+              {/* Add */}
+              <div>
+                <Button>Update Product</Button>
+              </div>
+            </form>
+          </div>
+        )}
       </CardFooter>
     </Card>
   );

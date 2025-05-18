@@ -41,7 +41,7 @@ const AddProduct = () => {
     }
 
     const productData = {
-      name,
+      title: name,
       price,
       image,
       description,

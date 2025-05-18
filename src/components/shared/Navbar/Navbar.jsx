@@ -12,8 +12,8 @@ const Navbar = () => {
   const cart = useSelector((state) => state.cart);
 
   return (
-    <div className="fixed top-0 left-0 w-full z-50 bg-white ">
-      <nav className="mx-auto w-11/12 md:w-[90%] max-w-screen-2xl flex items-center justify-between px-4 py-5 border-b drop-shadow">
+    <div className="fixed top-0 left-0 w-full z-50 bg-white border-b drop-shadow-lg">
+      <nav className="mx-auto w-11/12 md:w-[90%] max-w-screen-2xl flex items-center justify-between px-4 py-5">
         {/* logo */}
         <div>
           <Button className={"hover:scale-105"}>RTK Shopping</Button>
